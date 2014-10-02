@@ -17,11 +17,11 @@ def turnRight90():
 	turnRight(1, .75)
 
 def turnLeft90():
-	turnLeft(1, .80)
+	turnLeft(1, .85)
 
 def sweetTurnLeft90():
 	move(.6, .5)
-	sleep(1.55)
+	sleep(1.6)
 	motors(0, 0)
 
 def turnRightNotch():
@@ -39,7 +39,7 @@ def seenObstacle(newThreshold=MIDDLE_OBSTACLE_THRESHOLD):
 
 avoidingObstacle = -1
 
-counterForZero = 0
+counterForZero = 1
 # -1: No obstacle yet
 # 0: Obstacle seen, right after first turn to the right
 # 1: Walking forward along the box
@@ -72,6 +72,7 @@ while 1:
 		goStraight()
 	elif avoidingObstacle == 2:
 		# Go forward for counter * 2 seconds
+		print "counterForZero: %d" % counterForZero
 		sleep(2*counterForZero)
 		avoidingObstacle = -1
 		turnRight90()
