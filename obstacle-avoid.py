@@ -1,10 +1,12 @@
 from myro import *
 initialize("/dev/tty.IPRE6-193907-DevB")
 
+from orient import orient
+
 from time import sleep
 
 DEFAULT_SPEED = 0.3
-MIDDLE_OBSTACLE_THRESHOLD = 1000
+MIDDLE_OBSTACLE_THRESHOLD = 800
 
 setIRPower(130)
 
@@ -38,18 +40,20 @@ def seenObstacle(newThreshold=MIDDLE_OBSTACLE_THRESHOLD):
 		return False
 
 avoidingObstacle = -1
-
-counterForZero = 1
 # -1: No obstacle yet
 # 0: Obstacle seen, right after first turn to the right
 # 1: Walking forward along the box
 # 2: Last step
+
+counterForZero = 1
+
 
 goStraight()
 
 while 1:
 
 	if seenObstacle():
+		orient()
 		avoidingObstacle = 0
 		turnRight90()
 		goStraight()
@@ -64,6 +68,10 @@ while 1:
 		else:
 			turnRight90()
 			sweetTurnLeft90()
+			if avoidingObstacle == 0:
+				turnLeft90()
+				orient()
+				turnRight90()
 			avoidingObstacle += 1
 
 		if avoidingObstacle == 0:
