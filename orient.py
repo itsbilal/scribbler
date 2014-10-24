@@ -1,5 +1,5 @@
 from myro import *
-
+from time import sleep
 
 def turnRightNotch():
 	turnRight(0.25,0.2)

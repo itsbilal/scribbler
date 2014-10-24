@@ -16,13 +16,13 @@ def goStraight():
 	motors(DEFAULT_SPEED, DEFAULT_SPEED)
 
 def turnRight90():
-	turnRight(1, .67)
+	turnRight(1, .69)
 
 def turnLeft90():
 	turnLeft(1, .69)
 
 def sweetTurnLeft90():
-	move(.75, .5)
+	move(.70, .5)
 	sleep(1.6)
 	motors(0, 0)
 
@@ -69,9 +69,12 @@ while 1:
 			turnRight90()
 			sweetTurnLeft90()
 			if avoidingObstacle == 0:
-				"""turnLeft90()
+				goStraight()
+				sleep(1.0)
+				turnLeft90()
 				orient()
-				turnRight90()"""
+				turnRight90()
+
 			avoidingObstacle += 1
 
 		if avoidingObstacle == 0:
