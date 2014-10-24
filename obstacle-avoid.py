@@ -6,7 +6,7 @@ from orient import orient
 from time import sleep
 
 DEFAULT_SPEED = 0.3
-MIDDLE_OBSTACLE_THRESHOLD = 800
+MIDDLE_OBSTACLE_THRESHOLD = 700
 
 setIRPower(130)
 
@@ -16,13 +16,13 @@ def goStraight():
 	motors(DEFAULT_SPEED, DEFAULT_SPEED)
 
 def turnRight90():
-	turnRight(1, .75)
+	turnRight(1, .67)
 
 def turnLeft90():
-	turnLeft(1, .85)
+	turnLeft(1, .69)
 
 def sweetTurnLeft90():
-	move(.6, .5)
+	move(.75, .5)
 	sleep(1.6)
 	motors(0, 0)
 
@@ -69,9 +69,9 @@ while 1:
 			turnRight90()
 			sweetTurnLeft90()
 			if avoidingObstacle == 0:
-				turnLeft90()
+				"""turnLeft90()
 				orient()
-				turnRight90()
+				turnRight90()"""
 			avoidingObstacle += 1
 
 		if avoidingObstacle == 0:
