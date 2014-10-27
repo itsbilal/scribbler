@@ -1,7 +1,7 @@
 from myro import *
 initialize("/dev/tty.IPRE6-193907-DevB")
 
-from orient import orient
+import orient
 
 from time import sleep
 
@@ -16,14 +16,14 @@ def goStraight():
 	motors(DEFAULT_SPEED, DEFAULT_SPEED)
 
 def turnRight90():
-	turnRight(1, .69)
+	turnRight(1, .72)
 
 def turnLeft90():
-	turnLeft(1, .69)
+	turnLeft(1, .75)
 
 def sweetTurnLeft90():
-	move(.70, .5)
-	sleep(1.6)
+	move(.65, .5)
+	sleep(1.8)
 	motors(0, 0)
 
 def turnRightNotch():
@@ -47,13 +47,15 @@ avoidingObstacle = -1
 
 counterForZero = 1
 
+notches = 0
 
 goStraight()
 
 while 1:
 
 	if seenObstacle():
-		orient()
+		notches = orient.orient()
+		print "notches = %d" % notches
 		avoidingObstacle = 0
 		turnRight90()
 		goStraight()
@@ -71,9 +73,14 @@ while 1:
 			if avoidingObstacle == 0:
 				goStraight()
 				sleep(1.0)
-				turnLeft90()
-				orient()
-				turnRight90()
+				if notches <= -3:
+					orient.turnRightNotch(abs(notches))
+					avoidingObstacle = -2
+					goStraight()
+				else:
+					turnLeft90()
+					orient.orient()
+					turnRight90()
 
 			avoidingObstacle += 1
 
@@ -86,7 +93,10 @@ while 1:
 		print "counterForZero: %d" % counterForZero
 		sleep(2*counterForZero)
 		avoidingObstacle = -1
-		turnRight90()
+		if notches >= 3:
+			orient.turnRightNotch(abs(notches))
+		else:
+			turnRight90()
 		goStraight()
 
 	print "avoidingObstacle: %d" % avoidingObstacle

@@ -1,19 +1,21 @@
 from myro import *
 from time import sleep
 
-def turnRightNotch():
-	turnRight(0.25,0.2)
+def turnRightNotch(notches=1):
+	for i in range(0, notches):
+		turnRight(0.25,0.2)
 
 def turnLeftNotch():
 	turnLeft(0.25,0.25)
 
 def orient():
-
+	totalNotches = 0
 	max = getObstacle()[1]
 	while 1:
 		turnRightNotch()
+		totalNotches += 1
 		curObs = getObstacle()[1]
-		if curObs < max:
+		if curObs < max and curObs == 0:
 			break
 		else:
 			max = curObs
@@ -22,6 +24,7 @@ def orient():
 
 	while 1:
 		turnLeftNotch()
+		totalNotches -= 1
 		curObs = getObstacle()[1]
 		if curObs < max:
 			break
@@ -47,6 +50,8 @@ def orient():
 	print "max=%d, index=%d" % (max, index)
 
 	turnRight(1,0.1*index)"""
+
+	return totalNotches
 
 
 
