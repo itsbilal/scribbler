@@ -30,7 +30,7 @@ def turnLeft90():
 
 def sweetTurnLeft90():
 	move(.65, .5)
-	sleep(1.8)
+	sleep(1.6)
 	motors(0, 0)
 
 def seenObstacle(newThreshold=MIDDLE_OBSTACLE_THRESHOLD):

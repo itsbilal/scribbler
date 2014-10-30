@@ -27,7 +27,7 @@ def orient():
 		turnLeftNotch()
 		totalNotches -= 1
 		curObs = getObstacle()[1]
-		if curObs < max and noMax == 1:
+		if curObs <= max and noMax == 1:
 			break
 		elif curObs < max and noMax == 0:
 			noMax += 1
