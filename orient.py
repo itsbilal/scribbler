@@ -21,17 +21,22 @@ def orient():
 			max = curObs
 
 	max = 0
+	noMax = 0
 
 	while 1:
 		turnLeftNotch()
 		totalNotches -= 1
 		curObs = getObstacle()[1]
-		if curObs < max:
+		if curObs < max and noMax == 1:
 			break
+		elif curObs < max and noMax == 0:
+			noMax += 1
+			max = curObs
 		else:
 			max = curObs
+			noMax = 0
 
-	turnRightNotch()
+	turnRightNotch(2)
 
 	"""for i in range(CIRCLECOUNTS):
 		L,C,R = getObstacle()

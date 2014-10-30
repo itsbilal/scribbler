@@ -6,7 +6,14 @@ import orient
 from time import sleep
 
 DEFAULT_SPEED = 0.3
-MIDDLE_OBSTACLE_THRESHOLD = 700
+MIDDLE_OBSTACLE_THRESHOLD = 100
+
+TIME_BETWEEN_CHECKES=1
+
+ANGULAR_CHECKS=True
+
+if ANGULAR_CHECKS == False:
+	MIDDLE_OBSTACLE_THRESHOLD = 700
 
 setIRPower(130)
 
@@ -16,18 +23,15 @@ def goStraight():
 	motors(DEFAULT_SPEED, DEFAULT_SPEED)
 
 def turnRight90():
-	turnRight(1, .72)
+	turnRight(.5, 1.32)
 
 def turnLeft90():
-	turnLeft(1, .75)
+	turnLeft(.5, 1.32)
 
 def sweetTurnLeft90():
 	move(.65, .5)
 	sleep(1.8)
 	motors(0, 0)
-
-def turnRightNotch():
-	turnRight(1, .1)
 
 def seenObstacle(newThreshold=MIDDLE_OBSTACLE_THRESHOLD):
 	left, middle, right = getObstacle()
@@ -54,14 +58,17 @@ goStraight()
 while 1:
 
 	if seenObstacle():
-		notches = orient.orient()
+		if ANGULAR_CHECKS:
+			notches = orient.orient()
+		else:
+			notches = 0
 		print "notches = %d" % notches
 		avoidingObstacle = 0
 		turnRight90()
 		goStraight()
 
 	if avoidingObstacle >= 0 and avoidingObstacle <= 1:
-		sleep(2)
+		sleep(TIME_BETWEEN_CHECKES)
 
 		# Check the side
 		turnLeft90()
@@ -73,13 +80,15 @@ while 1:
 			if avoidingObstacle == 0:
 				goStraight()
 				sleep(1.0)
-				if notches <= -3:
+				if notches <= -2:
+					sleep(2)
 					orient.turnRightNotch(abs(notches))
 					avoidingObstacle = -2
 					goStraight()
 				else:
 					turnLeft90()
-					orient.orient()
+					if ANGULAR_CHECKS:
+						orient.orient()
 					turnRight90()
 
 			avoidingObstacle += 1
@@ -91,9 +100,10 @@ while 1:
 	elif avoidingObstacle == 2:
 		# Go forward for counter * 2 seconds
 		print "counterForZero: %d" % counterForZero
-		sleep(2*counterForZero)
+		sleep(TIME_BETWEEN_CHECKES*counterForZero)
 		avoidingObstacle = -1
-		if notches >= 3:
+		if notches >= 2:
+			sleep(2)
 			orient.turnRightNotch(abs(notches))
 		else:
 			turnRight90()
