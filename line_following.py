@@ -23,11 +23,14 @@ while 1:
 	print "left = %d, right = %d" % (left, right)
 
 	if left == 1 and right == 0:
+		# Left half is over line
 		turnLeftNotch()
 		#counter += 1
 	elif right == 1 and left == 0:
+		# Right half is over line
 		turnRightNotch()
 		#counter -= 1
+
 	"""elif left == 1 and right == 1:
 		if didGoOffCourse:
 			if counter >= 1:

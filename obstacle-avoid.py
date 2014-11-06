@@ -23,7 +23,7 @@ def goStraight():
 	motors(DEFAULT_SPEED, DEFAULT_SPEED)
 
 def turnRight90():
-	turnRight(.5, 1.32)
+	turnRight(.5, 1.30)
 
 def turnLeft90():
 	turnLeft(.5, 1.32)
