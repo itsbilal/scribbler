@@ -1,6 +1,5 @@
 
 from myro import *
-initialize("/dev/tty.IPRE6-193907-DevB")
 
 DEFAULT_SPEED = -0.1
 
@@ -43,12 +42,12 @@ def correctYourself(lastStep=0):
 			goStraight()
 			return True
 
-"""counter = 0
-didGoOffCourse = False"""
+if __name__ == "__main__":
+	initialize("/dev/tty.IPRE6-193907-DevB")
+	goStraight()
+	while 1:
+		correctYourself()
 
-goStraight()
 
-while 1:
-	correctYourself()
 
 
