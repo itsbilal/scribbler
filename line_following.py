@@ -9,39 +9,46 @@ def goStraight():
 
 def turnRightNotch(counter=1):
 	for i in range(0,counter):
-		turnLeft(0.25, 0.2)
+		turnLeft(0.1, 0.2)
 
 def turnLeftNotch(counter=1):
 	for i in range(0, counter):
-		turnRight(0.25, 0.2)
+		turnRight(0.1, 0.2)
 
-"""counter = 0
-didGoOffCourse = False"""
-
-while 1:
+def correctYourself(lastStep=0):
 	right, left = getLine()
 	print "left = %d, right = %d" % (left, right)
 
 	if left == 1 and right == 0:
 		# Left half is over line
 		turnLeftNotch()
-		#counter += 1
+
+		return correctYourself(1)
 	elif right == 1 and left == 0:
 		# Right half is over line
 		turnRightNotch()
-		#counter -= 1
-
-	"""elif left == 1 and right == 1:
-		if didGoOffCourse:
-			if counter >= 1:
-				turnRightNotch(counter)
-			elif counter <= 1:
-				turnLeftNotch(counter)
-			didGoOffCourse = False
-
-		counter = 0
+		
+		return correctYourself(-1)
+	elif right == 1 and left == 1:
+		goStraight()
+		return True
 	else:
-		didGoOffCourse = True"""
+		if lastStep == -1: # Right
+			turnRightNotch()
+			return correctYourself(lastStep)
+		elif lastStep == 1:
+			turnLeftNotch()
+			return correctYourself(lastStep)
+		else:
+			goStraight()
+			return True
+
+"""counter = 0
+didGoOffCourse = False"""
+
+goStraight()
+
+while 1:
+	correctYourself()
 
 
-	goStraight()
