@@ -6,6 +6,8 @@ from dominantColor import getColor
 from PIL import Image
 from tesserwrap import Tesseract
 
+from playnote import bp
+
 
 initialize("/dev/tty.IPRE6-193907-DevB")
 
@@ -39,7 +41,7 @@ while 1:
 		image = getPILImage()
 		ocr = Tesseract().ocr_image(image)
 
-
+		bp(1, sanitizeInput(ocr))
 
 		sleep(1)
 
