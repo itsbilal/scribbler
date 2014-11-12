@@ -4,22 +4,21 @@ def bp(duration, note):
     frequency = 0.0
 
     if note == 'C':
-        frequency = 261.63
+        frequency = 523.25
     elif note == 'D':
-        frequency = 293.66
+        frequency = 587.33
     elif note == 'E':
-        frequency = 329.63
+        frequency = 659.25
     elif note == 'F':
-        frequency = 349.23
+        frequency = 698.46
     elif note == 'G':
-        frequency = 392.00
+        frequency = 783.99
     elif note == 'A':
-        frequency = 440.00
+        frequency = 880.00
     elif note == 'B':
-        frequency = 493.88
+        frequency = 987.77 
     beep(duration,frequency)
 
 if __name__ == "__main__":
     initialize("/dev/tty.IPRE6-193907-DevB")
     bp(5,'A')
-
