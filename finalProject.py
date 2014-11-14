@@ -7,6 +7,7 @@ from PIL import Image
 from tesserwrap import Tesseract
 from playnote import bp
 from time import time
+from makeSong import makeFile
 
 
 initialize("/dev/tty.IPRE6-193907-DevB")
@@ -62,6 +63,7 @@ while 1:
 
 		elif ocr == "Z":
 			playNotes(notes)
+                        makeFile(notes)
 			break
 
 		sleep(1)
