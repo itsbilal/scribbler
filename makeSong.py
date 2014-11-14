@@ -34,7 +34,7 @@ class SoundFile:
         self.file.writeframes(self.signal)
         self.file.close()
 
-def makeFile(notes, startTime, myfilename = 'song.wav'):
+def makeFile(notes, startTime, filename = 'song.wav'):
     data = ""
     signal = ""
     for k in sorted(notes):
@@ -43,7 +43,7 @@ def makeFile(notes, startTime, myfilename = 'song.wav'):
         data = get_signal_data(frequency, duration)
         signal += numpy2string(data)
         startTime = k 
-    f = SoundFile(signal, myfilename, duration)
+    f = SoundFile(signal, filename, duration)
     f.write()
     print 'file written'
 

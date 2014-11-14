@@ -1,5 +1,7 @@
 from myro import *
-initialize("/dev/tty.IPRE6-193907-DevB")
+
+if __name__ == "__main__":
+	initialize("/dev/tty.IPRE6-193907-DevB")
 
 import orient
 

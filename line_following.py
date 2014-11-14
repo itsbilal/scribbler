@@ -40,7 +40,7 @@ def correctYourself(lastStep=0):
 			return correctYourself(lastStep)
 		else:
 			goStraight()
-			return True
+			return False
 
 if __name__ == "__main__":
 	initialize("/dev/tty.IPRE6-193907-DevB")

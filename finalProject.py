@@ -6,9 +6,8 @@ from dominantColor import getColor
 from PIL import Image
 from tesserwrap import Tesseract
 from playnote import bp
-from time import time
+from time import time, strftime
 from makeSong import makeFile
-
 
 initialize("/dev/tty.IPRE6-193907-DevB")
 
@@ -41,6 +40,11 @@ def playNotes(notes):
 
 	sleep(4)
 
+def turnRight90():
+	turnRight(.5, 1.30)
+
+def turnLeft90():
+	turnLeft(.5, 1.32)
 
 goStraight()
 
@@ -49,24 +53,39 @@ firstTime = time()
 notes = {}
 
 while 1:
-	correctYourself()
-	left, middle,  right = getObstacle()
-	if middle >= OBSTACLE_THRESHOLD:
-		stop()
-		image = getPILImage()
-		ocr = Tesseract().ocr_image(image)
-		ocr = sanitizeInput(ocr)
 
-		print "note: %s" % ocr
+	if not correctYourself():
+		# We've gone past the end of the line
+		sleep(1.5)
+		right, left = getLine()
+		if right == 1 or left == 1: # Line coms back up
+			stop()
+			turnLeft90()
 
-		if ocr is not None and ocr is not "Z":
-			notes[int(time() - firstTime)] = ocr
+			image = getPILImage()
+			ocr = Tesseract().ocr_image(image)
+			ocr = sanitizeInput(ocr)
 
-		elif ocr == "Z":
+			print "note: %s" % ocr
+
+			if ocr is not None and ocr is not "Z":
+				notes[int(time() - firstTime)] = ocr
+
+			elif ocr == "Z":
+				playNotes(notes)
+				makeFile(notes, firstTime, filename=("sounds/" + strftime("%Y-%m-%d %H:%M:%S")+".wav"))
+				break
+
+			sleep(1)
+			turnRight90()
+			goStraight()
+
+		elif len(notes) > 0:
+			stop()
 			playNotes(notes)
-			makeFile(notes)
+			makeFile(notes, firstTime, filename=("sounds/" + strftime("%Y-%m-%d %H:%M:%S")+".wav"))
 			break
-
-		sleep(1)
-		#goStraight()
+		else:
+			stop()
+			break
 	
