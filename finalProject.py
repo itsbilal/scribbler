@@ -18,6 +18,7 @@ OBSTACLE_THRESHOLD = 600
 def getPILImage():
 	pic = takePicture("grey")
 	savePicture(pic, "current.png")
+	savePicture(pic, "photos/"+strftime("%Y-%m-%d %H:%M:%S")+".png")
 
 	img = Image.open("current.png")
 	return img
