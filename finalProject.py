@@ -63,7 +63,7 @@ while 1:
 
 		elif ocr == "Z":
 			playNotes(notes)
-                        makeFile(notes)
+			makeFile(notes)
 			break
 
 		sleep(1)
