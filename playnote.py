@@ -1,8 +1,11 @@
 from myro import *
 
 def bp(duration, note):
-    frequency = 0.0
+    frequency = getFrequency(note)
+    beep(duration,frequency)
 
+def getFrequency(note):
+    frequency = 0.0
     if note == 'C':
         frequency = 523.25
     elif note == 'D':
@@ -17,7 +20,7 @@ def bp(duration, note):
         frequency = 880.00
     elif note == 'B':
         frequency = 987.77 
-    beep(duration,frequency)
+    return frequency
 
 if __name__ == "__main__":
     initialize("/dev/tty.IPRE6-193907-DevB")
