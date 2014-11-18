@@ -20,6 +20,8 @@ def getFrequency(note):
         frequency = 880.00
     elif note == 'B':
         frequency = 987.77 
+    elif note == 'Z':
+        frequency = 1046.5
     return frequency
 
 if __name__ == "__main__":
