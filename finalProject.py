@@ -14,6 +14,8 @@ initialize("/dev/tty.IPRE6-193907-DevB")
 RUN_OVER_TIME = 2
 OBSTACLE_THRESHOLD = 600
 
+INTERVAL_BETWEEN_TURNS= 4
+
 def getPILImage():
 	pic = takePicture("grey")
 	savePicture(pic, "current.png")
@@ -49,43 +51,38 @@ def turnLeft90():
 goStraight()
 
 firstTime = time()
+lastTurnTime = time()
 
 notes = {}
 
 while 1:
-
 	if not correctYourself():
-		# We've gone past the end of the line
-		sleep(1.5)
-		right, left = getLine()
-		if right == 1 or left == 1: # Line coms back up
-			stop()
-			turnLeft90()
+		stop()
+		playNotes(notes)
+		makeFile(notes, firstTime, filename=("sounds/" + strftime("%Y-%m-%d %H:%M:%S")+".wav"))
+		break
 
-			image = getPILImage()
-			ocr = Tesseract().ocr_image(image)
-			ocr = sanitizeInput(ocr)
+	curTime = time()
 
-			print "note: %s" % ocr
+	if (curTime - lastTurnTime) > INTERVAL_BETWEEN_TURNS:
+		stop()
+		turnLeft90()
 
-			if ocr is not None and ocr is not "Z":
-				notes[int(time() - firstTime)] = ocr
+		image = getPILImage()
+		ocr = Tesseract().ocr_image(image)
+		ocr = sanitizeInput(ocr)
 
-			elif ocr == "Z":
-				playNotes(notes)
-				makeFile(notes, firstTime, filename=("sounds/" + strftime("%Y-%m-%d %H:%M:%S")+".wav"))
-				break
+		print "note: %s" % ocr
 
-			sleep(1)
-			turnRight90()
-			goStraight()
+		if ocr is not None and ocr is not "Z":
+			notes[int(time() - firstTime)] = ocr
 
-		elif len(notes) > 0:
-			stop()
+		elif ocr == "Z":
 			playNotes(notes)
 			makeFile(notes, firstTime, filename=("sounds/" + strftime("%Y-%m-%d %H:%M:%S")+".wav"))
 			break
-		else:
-			stop()
-			break
-	
+
+		turnRight90()
+		lastTurnTime = curTime
+		goStraight()
+
