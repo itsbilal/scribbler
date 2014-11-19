@@ -6,7 +6,7 @@ def bp(duration, note):
 
 def getFrequency(note):
     frequency = 0.0
-    if note == 'C':
+    if note == 'O' || note == 'o':
         frequency = 523.25
     elif note == 'D':
         frequency = 587.33
@@ -14,7 +14,7 @@ def getFrequency(note):
         frequency = 659.25
     elif note == 'F':
         frequency = 698.46
-    elif note == 'G':
+    elif note == 'I':
         frequency = 783.99
     elif note == 'A':
         frequency = 880.00
