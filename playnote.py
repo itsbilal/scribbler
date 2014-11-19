@@ -5,7 +5,7 @@ def bp(duration, note):
     beep(duration,frequency)
 
 def getFrequency(note):
-    frequency = 0.0
+    frequency = 1.0
     if note == 'O' or note == 'o':
         frequency = 523.25
     elif note == 'D':

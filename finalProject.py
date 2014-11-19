@@ -98,5 +98,7 @@ while 1:
 
 		turnRight90()
 		lastTurnTime = time()
+
+		correctYourself()
 		goStraight()
 
