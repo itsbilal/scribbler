@@ -29,7 +29,7 @@ def getPILImage(should_save=True):
 	return img
 
 def sanitizeInput(inputStr):
-	valid_notes = ["A", "B", "C", "G", "Z"]
+	valid_notes = ["A", "B", "I", "O", "Z"]
 
 	inputStr = inputStr.upper()
 
@@ -47,7 +47,7 @@ def playNotes(notes):
 	sleep(4)
 
 def turnRight90():
-	turnRight(.5, 1.33)
+	turnRight(.5, 1.30)
 
 def turnLeft90():
 	turnLeft(.5, 1.32)
