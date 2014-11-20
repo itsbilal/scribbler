@@ -15,7 +15,7 @@ def get_signal_data(frequency=440, duration=1, volume=32768, samplerate=44100):
 
 def numpy2string(y):
     """Expects a numpy vector of numbers, outputs a string"""
-    signal = "".join((wave.struct.pack('h', item) for item in y))
+    signal = "".join((wave.struct.pack('i', item) for item in y))
     # this formats data for wave library, 'h' means data are formatted
     # as short ints
     return signal

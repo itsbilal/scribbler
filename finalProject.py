@@ -29,7 +29,7 @@ def getPILImage(should_save=True):
 	return img
 
 def sanitizeInput(inputStr):
-	valid_notes = ["A", "B", "I", "O", "Z"]
+	valid_notes = ["A", "B", "I", "O", "Z", "E"]
 
 	inputStr = inputStr.upper()
 
@@ -47,7 +47,7 @@ def playNotes(notes):
 	sleep(4)
 
 def turnRight90():
-	turnRight(.5, 1.30)
+	turnRight(.5, 1.31)
 
 def turnLeft90():
 	turnLeft(.5, 1.32)
@@ -63,8 +63,11 @@ while 1:
 	correctionTime = time()
 	if not correctYourself():
 		stop()
-		playNotes(notes)
-		makeFile(notes, firstTime, filename=("sounds/" + strftime("%Y-%m-%d %H:%M:%S")+".wav"))
+		if len(notes) > 0:
+			print notes
+			
+			playNotes(notes)
+			makeFile(notes, firstTime, filename=("sounds/" + strftime("%Y-%m-%d %H:%M:%S")+".wav"))
 		break
 	correctionTime = time() - correctionTime
 
@@ -101,4 +104,7 @@ while 1:
 
 		correctYourself()
 		goStraight()
+
+
+sleep(6)
 
