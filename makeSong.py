@@ -38,7 +38,7 @@ def makeFile(notes, startTime, filename = 'song.wav'):
     data = ""
     signal = ""
     for k in sorted(notes):
-    	duration = (k - startTime)/4
+    	duration = (k - startTime)/16
         frequency = getFrequency(notes[k])
         data = get_signal_data(frequency, duration)
         signal += numpy2string(data)
